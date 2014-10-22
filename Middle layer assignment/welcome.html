@@ -7,10 +7,11 @@
 		</style>
 	</head>
 	<body>
-		<a href="#">Click</a>
-		<a href="#">Mouse over</a>
-		<a href="#">Click twice</a>
+		<a href="#" class="report-behavior-click">Click</a>
+		<a href="#" class="report-behavior-mouseover">Mouse over</a>
+		<a href="#" class="report-behavior-doubleclick">Click twice</a>
 	
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script type="text/javascript">
 			/*
 			 * 	Instructions:
@@ -27,6 +28,41 @@
 			 *  to use an external library to add event handlers and create HTTP requests.
 			 *
 			 */
+			var USER_ID = 23;
+
+			jQuery(function ($) {
+
+				//Sends an activity event to the server
+				//	then logs result in the console
+				var reportEvent = function (eventType, userId) {
+					$.post('controller.php',
+						{ type: eventType, id: userId },
+						function (response) {
+							console.log('Server response (for ' + eventType + '):', response.result);
+						});
+				};
+
+				$('.report-behavior-click').click(function (evt) {
+					evt.preventDefault();
+					reportEvent('click', USER_ID);
+				});
+
+				$('.report-behavior-mouseover').mouseover(function (evt) {
+					reportEvent('mouseover', USER_ID);
+				});
+
+				$('.report-behavior-doubleclick')
+					.click(function (evt) {
+						//Traps initial click so location does not change
+						evt.preventDefault();
+					})
+					.dblclick(function (evt) {
+						evt.preventDefault();
+						reportEvent('doubleclick', USER_ID);
+					});
+
+			});
+
 		</script>
 	</body>
 </html>
