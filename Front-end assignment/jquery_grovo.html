@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>The Sun</title>
+		<style>
+			body {font-size: 1em; margin: 2em;}
+			.TheSun {display: none; margin-bottom: 1em;}
+			.TheSun > div {display:block; height: 4em; width: 4em; background: #f69f1c; border-radius: 2em;}
+			form {margin-top: 1em;}
+			input {border: 1px solid #acacac; padding: 0.5em;}
+			input:focus {border-color: orange;}
+		</style>
+	</head>
+	<body>
+		<div>
+			<a href="#" class="StartTheDay">Start the day!</a>
+			<div class="TheSun">
+				<h3>The Sun Rises in the East and Sets in the West</h3>
+				<div></div>
+			</div>
+			<form>
+				<label for="CurrentTime">Current Time:</label>
+				<input type="text" class="DefaultInput" id="CurrentTime" value="" tabindex="1"/>
+			</form>
+		</div>
+	</body>
+</html>
