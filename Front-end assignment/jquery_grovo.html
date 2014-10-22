@@ -23,5 +23,56 @@
 				<input type="text" class="DefaultInput" id="CurrentTime" value="" tabindex="1"/>
 			</form>
 		</div>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script><!--
+			jQuery(function ($) {
+				var sunSettings = {
+					//Selector to find the "sun" element
+					//NOTE: Be sure to update this if the sun's id/class changes
+	 				selector: '.TheSun',
+	 				//Element to focus when "sun" is done doing its thang
+	 				focusSelector: '#CurrentTime',
+	 				//Timings for the various "sun" animations
+					timings: {
+						in: 2000,
+						out: 2000,
+						interstitial: 500
+					},
+					//Name of the "sun" animation queue
+					queue: 'sunQueue'			
+				};
+
+				$('.StartTheDay').click(sunSettings, function (evt) {
+					//This prevents changing the location URL's hash
+					evt.preventDefault();
+
+					var settings = evt.data;
+
+					$(settings.selector)
+						.fadeIn({
+							queue: settings.queue,
+							duration: settings.timings.in
+						})
+						.delay({
+							queue: settings.queue,
+							duration: settings.timings.interstitial
+						})
+						.fadeOut({
+							queue: settings.queue,
+							duration: settings.timings.out
+						})
+						/* Adds a custom action to the queue to put
+						 * focus on the element specified by settings.focusSelector
+						 */
+						.queue(settings.queue, function (cb) {
+							$(settings.focusSelector).focus();
+							cb();
+						})
+						//Need to call this to get the queue draining
+						.dequeue(settings.queue)
+						;
+				});
+			});
+		//--></script>
 	</body>
 </html>
